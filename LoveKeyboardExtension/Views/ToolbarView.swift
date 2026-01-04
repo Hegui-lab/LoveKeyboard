@@ -1,15 +1,22 @@
 import UIKit
 
+// MARK: - ToolbarViewDelegate协议
+protocol ToolbarViewDelegate: AnyObject {
+    func toolbarDidTapLogo()
+    func toolbarDidTapHelpReply()
+    func toolbarDidTapSuperTalk()
+    func toolbarDidTapMore()
+}
+
 /// 工具栏视图 - 显示帮你回、超会说等功能按钮
 class ToolbarView: UIView {
 
-    // MARK: - 回调
-    var onHelpReplyTapped: (() -> Void)?
-    var onSuperTalkTapped: (() -> Void)?
-    var onMoreTapped: (() -> Void)?
+    // MARK: - Delegate
+    weak var delegate: ToolbarViewDelegate?
 
     // MARK: - UI组件
     private let stackView = UIStackView()
+    private let logoButton = UIButton(type: .system)
     private let helpReplyButton = UIButton(type: .system)
     private let superTalkButton = UIButton(type: .system)
     private let moreButton = UIButton(type: .system)
@@ -47,6 +54,11 @@ class ToolbarView: UIView {
     }
 
     private func setupButtons() {
+        // Logo按钮
+        logoButton.setTitle("Love", for: .normal)
+        logoButton.addTarget(self, action: #selector(logoTapped), for: .touchUpInside)
+        stackView.addArrangedSubview(logoButton)
+
         // 帮你回按钮
         helpReplyButton.setTitle("帮你回", for: .normal)
         helpReplyButton.addTarget(self, action: #selector(helpReplyTapped), for: .touchUpInside)
@@ -64,15 +76,19 @@ class ToolbarView: UIView {
     }
 
     // MARK: - 事件处理
+    @objc private func logoTapped() {
+        delegate?.toolbarDidTapLogo()
+    }
+
     @objc private func helpReplyTapped() {
-        onHelpReplyTapped?()
+        delegate?.toolbarDidTapHelpReply()
     }
 
     @objc private func superTalkTapped() {
-        onSuperTalkTapped?()
+        delegate?.toolbarDidTapSuperTalk()
     }
 
     @objc private func moreTapped() {
-        onMoreTapped?()
+        delegate?.toolbarDidTapMore()
     }
 }

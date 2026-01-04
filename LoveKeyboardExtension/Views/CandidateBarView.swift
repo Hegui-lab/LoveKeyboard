@@ -1,10 +1,15 @@
 import UIKit
 
+// MARK: - CandidateBarViewDelegate协议
+protocol CandidateBarViewDelegate: AnyObject {
+    func candidateBarDidSelectCandidate(_ candidate: String)
+}
+
 /// 候选词栏视图 - 显示拼音输入的候选词
 class CandidateBarView: UIView {
 
-    // MARK: - 回调
-    var onCandidateSelected: ((String) -> Void)?
+    // MARK: - Delegate
+    weak var delegate: CandidateBarViewDelegate?
 
     // MARK: - UI组件
     private let scrollView = UIScrollView()
@@ -46,8 +51,17 @@ class CandidateBarView: UIView {
     }
 
     // MARK: - 公共方法
-    func updateCandidates(_ candidates: [String]) {
+    func updateCandidates(_ candidates: [String], pinyin: String = "") {
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        // 如果有拼音，先显示拼音
+        if !pinyin.isEmpty {
+            let pinyinLabel = UILabel()
+            pinyinLabel.text = pinyin
+            pinyinLabel.font = .systemFont(ofSize: 14)
+            pinyinLabel.textColor = .gray
+            stackView.addArrangedSubview(pinyinLabel)
+        }
 
         for candidate in candidates {
             let button = UIButton(type: .system)
@@ -60,6 +74,6 @@ class CandidateBarView: UIView {
 
     @objc private func candidateTapped(_ sender: UIButton) {
         guard let text = sender.title(for: .normal) else { return }
-        onCandidateSelected?(text)
+        delegate?.candidateBarDidSelectCandidate(text)
     }
 }

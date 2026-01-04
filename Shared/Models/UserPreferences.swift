@@ -31,12 +31,22 @@ struct UserPreferences: Codable {
 }
 
 // MARK: - 键盘类型
-enum KeyboardType: String, Codable {
-    case qwerty = "26键"
-    case t9 = "九宫格"
-    case handwriting = "手写"
-    case symbol = "符号"
-    case number = "数字"
+enum KeyboardType: Int, Codable {
+    case qwerty = 0
+    case t9 = 1
+    case handwriting = 2
+    case symbol = 3
+    case number = 4
+
+    var displayName: String {
+        switch self {
+        case .qwerty: return "26键"
+        case .t9: return "九宫格"
+        case .handwriting: return "手写"
+        case .symbol: return "符号"
+        case .number: return "数字"
+        }
+    }
 }
 
 // MARK: - 输入模式

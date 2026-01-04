@@ -128,11 +128,8 @@ class StorageService {
     // MARK: - Keyboard Type
     var keyboardType: KeyboardType {
         get {
-            guard let rawValue = userDefaults.string(forKey: Keys.keyboardType),
-                  let type = KeyboardType(rawValue: rawValue) else {
-                return .qwerty
-            }
-            return type
+            let rawValue = userDefaults.integer(forKey: Keys.keyboardType)
+            return KeyboardType(rawValue: rawValue) ?? .qwerty
         }
         set {
             userDefaults.set(newValue.rawValue, forKey: Keys.keyboardType)
