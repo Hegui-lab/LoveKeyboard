@@ -22,7 +22,7 @@ class SymbolKeyboardView: UIView {
     private func setupUI() {
         backgroundColor = UIColor(white: 0.85, alpha: 1)
 
-        let symbols = ["，", "。", "？", "！", "、", "：", "；", """, """]
+        let symbols = ["，", "。", "？", "！", "、", "：", "；"]
 
         let stack = UIStackView()
         stack.axis = .horizontal
