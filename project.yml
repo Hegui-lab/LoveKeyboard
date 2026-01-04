@@ -1,0 +1,31 @@
+name: LoveKeyboard
+options:
+  bundleIdPrefix: com.heguilab
+  deploymentTarget:
+    iOS: "15.0"
+
+targets:
+  LoveKeyboard:
+    type: application
+    platform: iOS
+    sources:
+      - path: LoveKeyboard
+      - path: Shared
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.heguilab.lovekeyboard
+      INFOPLIST_FILE: LoveKeyboard/Info.plist
+      CODE_SIGN_STYLE: Manual
+      DEVELOPMENT_TEAM: ""
+    dependencies:
+      - target: LoveKeyboardExtension
+
+  LoveKeyboardExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: LoveKeyboardExtension
+      - path: Shared
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.heguilab.lovekeyboard.keyboard
+      INFOPLIST_FILE: LoveKeyboardExtension/Info.plist
+      CODE_SIGN_STYLE: Manual
