@@ -1,5 +1,13 @@
 import Foundation
+import CoreGraphics
+
+#if canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(SwiftUI)
 import SwiftUI
+#endif
 
 // MARK: - App常量
 struct AppConstants {
@@ -65,7 +73,8 @@ struct KeyboardLayout {
     ]
 }
 
-// MARK: - 颜色常量
+// MARK: - SwiftUI颜色常量
+#if canImport(SwiftUI)
 struct AppColors {
     static let primaryPink = Color(hex: "FF6B95")
     static let secondaryBlue = Color(hex: "5E75FA")
@@ -85,7 +94,7 @@ struct AppColors {
     )
 }
 
-// MARK: - Color扩展
+// MARK: - SwiftUI Color扩展
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -111,11 +120,10 @@ extension Color {
         )
     }
 }
+#endif
 
-// MARK: - UIColor扩展
+// MARK: - UIKit UIColor扩展
 #if canImport(UIKit)
-import UIKit
-
 extension UIColor {
     convenience init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
