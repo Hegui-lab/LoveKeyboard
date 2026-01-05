@@ -29,3 +29,4 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.heguilab.lovekeyboard.keyboard
       INFOPLIST_FILE: LoveKeyboardExtension/Info.plist
       CODE_SIGN_STYLE: Manual
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: KEYBOARD_EXTENSION

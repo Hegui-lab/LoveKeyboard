@@ -5,7 +5,8 @@ import CoreGraphics
 import UIKit
 #endif
 
-#if canImport(SwiftUI)
+// 只在非键盘扩展中导入SwiftUI
+#if canImport(SwiftUI) && !KEYBOARD_EXTENSION
 import SwiftUI
 #endif
 
@@ -73,8 +74,8 @@ struct KeyboardLayout {
     ]
 }
 
-// MARK: - SwiftUI颜色常量
-#if canImport(SwiftUI)
+// MARK: - SwiftUI颜色常量 (仅主App使用)
+#if canImport(SwiftUI) && !KEYBOARD_EXTENSION
 struct AppColors {
     static let primaryPink = Color(hex: "FF6B95")
     static let secondaryBlue = Color(hex: "5E75FA")
