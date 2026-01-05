@@ -5,18 +5,30 @@ workflows:
     environment:
       xcode: latest
       cocoapods: default
+      vars:
+        XCODE_SCHEME: "LoveKeyboard"
     scripts:
       - name: Install xcodegen
         script: brew install xcodegen
       - name: Generate Xcode project
         script: xcodegen generate
-      - name: Build iOS
+      - name: Build iOS Archive
         script: |
-          xcodebuild build \
+          xcodebuild archive \
             -project LoveKeyboard.xcodeproj \
-            -scheme LoveKeyboard \
-            -sdk iphonesimulator \
-            -configuration Debug \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/LoveKeyboard.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
+      - name: Export IPA
+        script: |
+          mkdir -p build/ipa
+          cd build/LoveKeyboard.xcarchive/Products/Applications
+          mkdir -p Payload
+          cp -r *.app Payload/
+          zip -r ../../../ipa/LoveKeyboard.ipa Payload
     artifacts:
-      - build/ios/ipa/*.ipa
+      - build/ipa/*.ipa
