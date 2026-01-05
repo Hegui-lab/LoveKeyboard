@@ -112,12 +112,6 @@ class KeyboardViewController: UIInputViewController {
         }
     }
 
-    // MARK: - Full Access Check
-    var hasFullAccess: Bool {
-        // 检查是否有完全访问权限
-        // 通过尝试访问剪贴板来判断
-        return UIPasteboard.general.hasStrings || UIPasteboard.general.hasImages
-    }
 }
 
 // MARK: - KeyboardMainViewDelegate
